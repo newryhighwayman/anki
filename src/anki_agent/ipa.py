@@ -6,6 +6,9 @@ import httpx
 from anki_agent.settings import load_settings
 
 WIKTIONARY_API_URL = "https://en.wiktionary.org/w/api.php"
+WIKTIONARY_HEADERS = {
+    "User-Agent": "AnkiAgent/0.1.0 (language-learning flashcard tool)",
+}
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +60,12 @@ def _get_single_word_ipa(word: str, language: str) -> str | None:
     }
 
     try:
-        response = httpx.get(WIKTIONARY_API_URL, params=params, timeout=10)
+        response = httpx.get(
+            WIKTIONARY_API_URL,
+            params=params,
+            headers=WIKTIONARY_HEADERS,
+            timeout=10,
+        )
         response.raise_for_status()
         data = response.json()
     except (httpx.HTTPError, ValueError):

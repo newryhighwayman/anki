@@ -6,6 +6,7 @@ import json
 import click
 
 from anki_agent.audio import AUDIO_PROVIDERS, get_audio_provider
+from anki_agent.audio.provider import AudioProvider
 from anki_agent.client import AnkiClient
 from anki_agent.config import SETTINGS_FILE
 from anki_agent.languages import LANGUAGES, get_language
@@ -13,10 +14,10 @@ from anki_agent.notes.builder import NoteBuilder
 from anki_agent.notes.duplicates import check_vocab_duplicate
 from anki_agent.notes.note_defs import NoteTypeName
 from anki_agent.notes.templates import ensure_models_exist
-from anki_agent.settings import load_settings
+from anki_agent.settings import Settings, load_settings
 
 
-def _get_audio_provider(settings):
+def _get_audio_provider(settings: Settings) -> AudioProvider:
     """Build an audio provider from the user's settings."""
     return get_audio_provider(
         settings.audio_provider,
@@ -33,16 +34,16 @@ def main() -> None:
 @main.command()
 def init() -> None:
     """Set up AnkiAgent by creating a settings file."""
-    click.echo("Welcome to AnkiAgent setup!\n")
+    click.echo("Welcome to AnkiAgent!")
 
     language_names = [lang.name for lang in LANGUAGES]
     source_language = click.prompt(
-        "What is your source language?",
+        "\nWhat is your source language?",
         type=click.Choice(language_names),
         default="English",
     )
     target_language = click.prompt(
-        "What language do you want to learn?",
+        "\nWhat language do you want to learn?",
         type=click.Choice(language_names),
     )
 
@@ -72,18 +73,23 @@ def init() -> None:
 
         choices = provider_cls.PARAM_CHOICES.get(param_name, {})
         if choices:
-            display = [f"{k} ({v})" for k, v in choices.items()]
-            raw = click.prompt(
+            hint = ", ".join(f"{k} ({v})" for k, v in choices.items())
+            click.echo(f"  Options: {hint}")
+            value = click.prompt(
                 param_name.replace("_", " ").title(),
-                type=click.Choice(display),
+                type=click.Choice(list(choices.keys())),
             )
-            audio_options[param_name] = raw.split(" ")[0]
+            audio_options[param_name] = value
         else:
             audio_options[param_name] = click.prompt(
                 param_name.replace("_", " ").title()
             )
 
     deck = click.prompt("Deck name", default=language.native_name)
+
+    client = AnkiClient()
+    client.create_deck(deck)
+    ensure_models_exist(client)
 
     SETTINGS_FILE.parent.mkdir(parents=True, exist_ok=True)
     data = {

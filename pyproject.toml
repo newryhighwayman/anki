@@ -10,7 +10,7 @@ dependencies = [
     "httpx",
     "pillow",
     "beautifulsoup4",
-    "duckduckgo-search",
+    "ddgs",
     "anthropic",
 ]
 

@@ -4,7 +4,7 @@ import io
 import logging
 
 import httpx
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 from PIL import Image
 
 from anki_agent.config import MAX_IMAGE_HEIGHT
