@@ -37,7 +37,7 @@ def test_get_available_languages_returns_all():
 def test_irish_only_has_focloir_provider():
     lang = get_language("Irish")
 
-    assert lang.audio_providers == ("focloir",)
+    assert lang.audio_providers == ("focloir.ie",)
     assert "google" not in lang.audio_providers
 
 

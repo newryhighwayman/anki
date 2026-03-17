@@ -51,7 +51,7 @@ AVAILABLE_LANGUAGES: tuple[dict, ...] = (
         "name": "Irish",
         "iso_code": "ga",
         "native_name": "Gaeilge",
-        "audio_providers": ("focloir",),
+        "audio_providers": ("focloir.ie",),
     },
     {
         "name": "Italian",

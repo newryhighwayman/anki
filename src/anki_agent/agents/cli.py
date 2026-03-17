@@ -51,7 +51,7 @@ def init() -> None:
     available_providers = language.audio_providers
     if len(available_providers) == 1:
         audio_provider = available_providers[0]
-        click.echo(f"Audio provider: {audio_provider}")
+        click.echo(f"Audio provider: {audio_provider} (only available provider)")
     else:
         audio_provider = click.prompt(
             "Audio provider",
@@ -89,6 +89,7 @@ def init() -> None:
 
     client = AnkiClient()
     client.create_deck(deck)
+    click.echo(f"Deck '{deck}' successfully created in Anki.")
     ensure_models_exist(client)
 
     SETTINGS_FILE.parent.mkdir(parents=True, exist_ok=True)

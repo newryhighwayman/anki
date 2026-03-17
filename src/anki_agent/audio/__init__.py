@@ -6,7 +6,7 @@ from anki_agent.audio.provider import AudioProvider
 
 AUDIO_PROVIDERS: dict[str, type[AudioProvider]] = {
     "google": GoogleTranslateAudioProvider,
-    "focloir": FocloirAudioProvider,
+    "focloir.ie": FocloirAudioProvider,
 }
 
 
@@ -19,7 +19,7 @@ def get_audio_provider(name: str, **kwargs) -> AudioProvider:
     Parameters
     ----------
     name : str
-        Provider name (e.g. "google", "focloir").
+        Provider name (e.g. "google", "focloir.ie").
 
     **kwargs
         Keyword arguments forwarded to the provider constructor.
