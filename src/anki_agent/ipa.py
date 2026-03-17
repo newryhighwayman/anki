@@ -13,8 +13,8 @@ logger = logging.getLogger(__name__)
 def get_ipa(word: str, language: str | None = None) -> str | None:
     """Get IPA pronunciation from Wiktionary.
 
-    Tries the full phrase first. If not found and the input contains
-    spaces, looks up each word individually and joins the results.
+    Tries the full phrase first. If not found and the input contains spaces, looks up
+    each word individually and joins the results.
 
     Parameters
     ----------
@@ -22,8 +22,8 @@ def get_ipa(word: str, language: str | None = None) -> str | None:
         The word or phrase to look up.
 
     language : str or None
-        The language section to search in (e.g. "Irish", "Spanish").
-        Defaults to the target language from settings.
+        The language section to search in (e.g. "Irish", "Spanish"). Defaults to the
+        target language from settings.
 
     Returns
     -------
