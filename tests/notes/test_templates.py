@@ -35,7 +35,7 @@ def test_template_html_files_readable():
     from anki_agent.notes.templates import _read_resource
 
     css = _read_resource("css/styles.css")
-    assert ".word" in css
+    assert ".source-phrase" in css
 
     front = _read_resource("target_to_source_front.html")
     assert "{{Word}}" in front

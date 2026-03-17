@@ -1,4 +1,4 @@
-.word { 
+.source-phrase {
     font-size: 24px;
 }
 
@@ -20,6 +20,14 @@
     margin-top: 4px; 
 }
 
+.target-phrase {
+    font-weight: bold;
+}
+
 hr {
     margin: 12px 0;
+}
+
+.card {
+    text-align: center;
 }
