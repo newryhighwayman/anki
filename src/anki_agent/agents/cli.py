@@ -6,6 +6,7 @@ import json
 import click
 import questionary
 
+from anki_agent.agents.core import AnkiAgent
 from anki_agent.audio import AUDIO_PROVIDERS, get_audio_provider
 from anki_agent.audio.provider import AudioProvider
 from anki_agent.client import AnkiClient
@@ -115,8 +116,6 @@ def init() -> None:
 @main.command()
 def chat() -> None:
     """Start an interactive chat session with the agent."""
-    from anki_agent.agents.core import AnkiAgent
-
     agent = AnkiAgent()
     click.echo("AnkiAgent chat (type 'quit' to exit)")
     click.echo("-" * 40)
